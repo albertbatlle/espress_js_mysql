@@ -1,0 +1,29 @@
+{
+  "name": "express_mysql_base",
+  "version": "1.0.0",
+  "description": "Ejemplo base de un servidor web que conecta con MySQL",
+  "main": "server.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IFCD0112-Grup-Cief-2024/express_mysql_base.git#main"
+  },
+  "keywords": [
+    "webserver",
+    "node",
+    "mysql"
+  ],
+  "author": "Grup CIEF - IFCD0112 - 2024",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IFCD0112-Grup-Cief-2024/express_mysql_base/issues"
+  },
+  "homepage": "https://github.com/IFCD0112-Grup-Cief-2024/express_mysql_base/tree/main#readme",
+  "dependencies": {
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3"
+  }
+}
