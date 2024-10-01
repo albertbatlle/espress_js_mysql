@@ -21,10 +21,10 @@ npm uninstall "nombre paquete"
 ```
 npm install 
 ```
-
 ## 5- Express: Framework para crear servidor web. 
 ### Documentación
-https://expressjs.com/
+[https://expressjs.com/](ir a ExpressJS)
+
 
 ## 6- Crear "hola mundo" (para utilizar import), añadir en el package.json la prop "type" y valor "module"
 ```
@@ -40,6 +40,7 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 ```
+
 ## 7- Separar las rutas en otra carpeta: "routes"
 
 ## 8- Conexión al servidor MySQL con el paquete "mysql2" en la ruta: "database/connection.js". Esta conexión la exportamos ya que nos servirá en otros módulos crear consultas con el método "query"
@@ -56,7 +57,3 @@ app.listen(port, () => {
 ```
 npm start
 ```
-
-Webserver -> Devuelve maquetación para el navegador.
-
-API REST 

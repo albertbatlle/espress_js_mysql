@@ -1,26 +1,22 @@
-// Importamos express
+// importa el paquete express de "node_modules"
 import express from 'express';
-// Import routes
-import ejemplosRoutes from "./routes/ejemplos.routes.js";
-import UserRoutes from './routes/crud.user.routes.js';
 
-// Import database connection
-// import connection from './database/connection.js';
+// TODO: Desarrollar parte server: APIRest con un CRUD de productos (4 campos incluyendo a PK)
 
-// connection.query("select * from test;")
+// Importem Routes
+import ProductRoutes from "./routes/crud.productos.routes.js";
 
-// creamos un objeto "server"
-const server = express()
+// creem objecte server
+const server = express();
 const port = 3000;
 
-// gestión de req json
-server.use(express.json());
-// rutes / endpoints
-// use(): Método para asignar middlewares
-// "/api/v1": parte inicial de la URL antes de los endpoints
-server.use("/api/v1", ejemplosRoutes, UserRoutes);
+// server.get('/', (req, res) => {
+//   res.send('Hello World!')
+// });
 
-// crear servidor
-server.listen(port, () => {
-  console.log(`Servidor escuchando por el puerto ${port}`)
-})
+server.use(express.json());
+server.use("/api/v1", ProductRoutes);
+
+server.listen(3000, () => {
+    console.log(`Servidor escuchando por el puerto 3000`)
+});

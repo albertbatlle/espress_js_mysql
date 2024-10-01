@@ -1,7 +1,7 @@
 {
   "name": "express_mysql_base",
   "version": "1.0.0",
-  "description": "Ejemplo base de un servidor web que conecta con MySQL",
+  "description": "TODO CRUD PRODUCTOS",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/IFCD0112-Grup-Cief-2024/express_mysql_base/tree/main#readme",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "express": "^4.21.0",
     "mysql2": "^3.11.3",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "validator": "^13.12.0"
   }
 }

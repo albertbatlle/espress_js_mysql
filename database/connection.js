@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-// 'mysql://root:password@localhost:3306/test'
+// TODO: Añadir la conexión a MySQL
 const dataConnection = {
     host: "localhost",
     user: "root",
@@ -17,8 +17,9 @@ try {
     var connection = await mysql.createConnection(URLConnection);
     console.log("Conexión a MySQL correcta!");
     
-} catch (error) {
+} catch (err) {
     console.log(err);
 }
+
 
 export default connection;
