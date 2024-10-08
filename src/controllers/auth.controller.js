@@ -125,3 +125,10 @@ exports.profile = async(req, res) => {
     });
     
 }
+
+// Ruta privada
+exports.private = async(req, res) => {
+    res.json({
+        message: `Bienvenido ${req.user.email} a tu ruta privada`
+    })
+}

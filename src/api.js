@@ -4,11 +4,12 @@ require("dotenv").config();
 
 const userRoutes = require("./routes/user.routes.js");
 const authRoutes = require("./routes/auth.routes.js");
+const apiRoutes = require("./routes/api.routes.js");
 
 
 // config middlewares 
 api.use(express.json());
-api.use("/api/v1", userRoutes, authRoutes);
+api.use("/api/v1", userRoutes, authRoutes, apiRoutes);
 api.use((req, res) => { // 404
     res.status(404).json({ 
         message: "Ruta no encontrada",

@@ -10,6 +10,8 @@ router.post("/auth/signin", authController.signinUser);
 router.post("/auth/signup", authController.signupUser);
 
 // privada
+// todas las rutas que tienen authMiddleware en medio son privadas
 router.get("/profile", authMiddleware, authController.profile);
+router.get("/private", authMiddleware, authController.private);
 
 module.exports = router;
