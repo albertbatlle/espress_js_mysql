@@ -3,6 +3,7 @@ const db = require("../config/dbMySQL.js");
 const { v4: uuidv4 } = require('uuid');
 const CryptoJS = require("crypto-js");
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
 
 // creamos schema de validacion
 const userSignupSchema = Joi.object({
@@ -16,62 +17,7 @@ const userSigninSchema = Joi.object({
     password: Joi.string().required()
 });
 
-
-exports.signinUser = async (req, res) => {
-    let connection;
-    try {       
-        
-        
-        // validar el formato
-        const { error } = userSigninSchema.validate(req.body);
-        if (error) {
-            return res.status(200).json({
-                message: error.details[0].message,
-                error: "Error de validación"
-            });
-        }
-
-        // destructuring
-        const { email, password } = req.body;
-        connection = await db.getConnection();
-        
-        // Obtenemos la información de la base de datos
-        const [user] = await db.query("select * from users where email = ?", [email]);
-        if (user.length === 0) ({
-            message: `Usuario con email: ${email} no encontrado `,
-            error: "Error de inicio de sesión"
-        });
-        
-        const originalPassword  = CryptoJS.AES.decrypt(user[0].password, process.env.CRYPTO_SECRET).toString(CryptoJS.enc.Utf8);
-        if (decryptedPassword !== password) {
-            return res.status(200).json({
-                message: "Password incorrecto",
-                error: "Error de inicio de sesión"
-            });
-        }
-
-        const token = jwt.sign ({ 
-            id: user[0].id,
-            email: user[0].email
-         }, process.env.JWT_SECRET, {expiresIn: "1h"} )
-        return res.status(200).json({
-            message: "Login OK!",
-            token
-        })
-        
-        
-
-    } catch (error) {
-        return res.status(500).json({ 
-            message: "No se pudo modificar el usuario",
-            error: "Error 500: " + error
-        });
-    } finally {
-        connection.release();
-    }
-
-}
-
+// Signup o Creación user
 exports.signupUser = async (req, res) => {
     let connection;
     try {        
@@ -113,4 +59,69 @@ exports.signupUser = async (req, res) => {
     } finally {
         connection.release();
     }
+}
+
+// Signin o Login
+exports.signinUser = async (req, res) => {
+    let connection;
+    try {     
+        
+        // validar el formato
+        const { error } = userSigninSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({
+                message: error.details[0].message,
+                error: "Error de validación"
+            });
+        }
+
+        // destructuring
+        const { email, password } = req.body;
+        connection = await db.getConnection();
+        
+        // Obtenemos la información de la base de datos
+        const [user] = await connection.query("select * from users where email = ?", [email]);
+        if (user.length === 0) {
+            return res.status(200).json({
+                message: `Usuario con email: ${email} no encontrado `,
+                error: "Error de inicio de sesión"
+            });            
+        }
+        
+        // desencriptar password
+        const originalPassword  = CryptoJS.AES.decrypt(user[0].password, process.env.CRYPTO_SECRET).toString(CryptoJS.enc.Utf8);
+        if (originalPassword !== password) {
+            return res.status(200).json({
+                message: "Password incorrecto",
+                error: "Error de inicio de sesión"
+            });
+        }
+
+        const token = jwt.sign ({ 
+            id: user[0].id,
+            email: user[0].email
+         }, process.env.JWT_SECRET, {expiresIn: "1h"});
+
+        return res.status(200).json({
+            message: "Login OK!",
+            token,
+        })
+        
+    } catch (error) {
+        return res.status(500).json({ 
+            message: "No se pudo registrar el usuario",
+            error: "Error 500: " + error
+        });
+    } finally {
+        connection.release();
+    }
+}
+
+// Iniciación del perfil
+exports.profile = async(req, res) => {
+    res.json({
+        message: "Bienvenido a tu perfil de usuario: " + req.user.email,
+        user: req.user
+    });
+    
 }
