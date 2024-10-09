@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!-- <link rel="stylesheet" href="./html_client/app.cs"> -->
+    </head>
+    <body>
+        <div style="width: 50%; margin: auto;">
+            <canvas id="myChart" style="height: 600px !important;"></canvas>
+        </div>
+          
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            // consumo de nuestra APIRest
+        fetch("http://localhost:3000/api/v1/randomAPI/credit_cards/20")
+            .then(response => response.json())
+            .then(responseJSON => {
+                // Pintamos en el gráfico la cantidad de tarjetas tipo "Mastercard"
+                const mastercardArray = responseJSON.credit_cards.filter(credit_card => credit_card.credit_card_type === "mastercard");
+
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mastercard'],
+                        datasets: [{
+                            label: '# mastercard credit cards',
+                            data: [mastercardArray.length],
+                            borderWidth: 1
+                        }]
+                    }
+                });
+            })
+            .catch(err => console.log(err))
+
+            
+
+        </script>
+        
+    </body>
+</html>

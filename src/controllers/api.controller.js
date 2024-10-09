@@ -8,16 +8,28 @@ exports.getCreditCards = async(req, res) => {
         const size = req.params.size;
         const response = await fetch("https://random-data-api.com/api/v2/credit_cards?size="+size);
         const responseJSON = await response.json();
-        // opción map
-        const values = responseJSON.map(credit_card => [
-            credit_card.id, 
-            credit_card.uid,
-            credit_card.credit_card_number,
-            credit_card.credit_card_expiry_date,
-            credit_card.credit_card_type,
-        ]);
-        connection = await db.getConnection();
-        await connection.query("insert into credit_cards values ?", [values]);
+        // connection = await db.getConnection();
+        // Si nos llega sólamente una tarjeta de crédito, llega como objeto , sinó array
+        // if (Array.isArray(responseJSON)) {
+        //     // opción map
+        //     const values = responseJSON.map(credit_card => [
+        //         credit_card.id, 
+        //         credit_card.uid,
+        //         credit_card.credit_card_number,
+        //         credit_card.credit_card_expiry_date,
+        //         credit_card.credit_card_type,
+        //     ]);
+        //     connection = await db.getConnection();
+        //     await connection.query("insert into credit_cards values ?", [values]);
+        // } else {
+        //     await connection.query("insert into credit_cards values (?,?,?,?,?)", [
+        //         responseJSON.id, 
+        //         responseJSON.uid,
+        //         responseJSON.credit_card_number,
+        //         responseJSON.credit_card_expiry_date,
+        //         responseJSON.credit_card_type
+        //     ]);
+        // }
 
         // opción bucle
         // responseJSON.forEach(async credit_card => {

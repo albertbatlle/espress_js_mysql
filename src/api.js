@@ -1,5 +1,6 @@
 const express = require("express");
 const api = new express();
+const cors = require('cors');
 require("dotenv").config();
 
 const userRoutes = require("./routes/user.routes.js");
@@ -8,6 +9,7 @@ const apiRoutes = require("./routes/api.routes.js");
 
 
 // config middlewares 
+api.use(cors());
 api.use(express.json());
 api.use("/api/v1", userRoutes, authRoutes, apiRoutes);
 api.use((req, res) => { // 404
