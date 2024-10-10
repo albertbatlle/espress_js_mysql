@@ -15,3 +15,8 @@ Plantilla API REST con ExpressJS y MySQL
 [https://opendata-ajuntament.barcelona.cat/es/api-cataleg] (Open Data Barcelona)
 [https://do.diba.cat/data/ds/biblioteques/mapa] (API Dades Obertes Diputació Barcelona)
 [https://dadesobertes.diba.cat/dades-obertes/documentacio-tecnica/api] (API Dades Obertes DIBA - Documentació Tècnica)
+
+[https://render.com/] (Render.com)
+[https://railway.app/](Railway)
+[https://bolt.new/] (Bolt)
+[https://ejs.co/](EJS)

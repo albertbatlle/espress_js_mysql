@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Donut</title>
     </head>
     <body>
-        <div>
-            <canvas id="myChart"></canvas>
+        <div style="width: 50%; margin: auto;">
+            <canvas id="myChart" style="height: 600px !important;"></canvas>
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -15,50 +15,49 @@
         <script>
             // consumo de nuestra APIRest
             fetch("http://localhost:3000/api/v1/randomAPI/credit_cards/20")
-            .then(response => response.json())
-            .then(responseJSON => {
-                // Pintamos en el gráfico la cantidad de tarjetas por tipo
-                // const cardsArray = responseJSON.reduce((count, cards) => {
-                //     if (count[responseJSON.credit_card_type]) {
-                //         count[responseJSON.credit_card_type]++;
-                //     } else {
-                //         count[responseJSON.credit_card_type] = 1;
-                //     }
-                //     return count;
-                // },{});
-                for (const objecte in responseJSON.credit_card_type) {
-                    cardsArray.push(objecte); 
-                }
+                .then(response => response.json())
+                .then(responseJSON => {
+                    // Pintamos en el gráfico la cantidad de tarjetas por tipo
+                    const cardsArray = responseJSON.credit_cards.map(credit_card => credit_card.credit_card_type);
 
-                // Obtenim el context del canvas
-                const ctx = document.getElementById('myChart');                        
+                    const cardsSinRep = cardsArray.filter((credit_type, index) => {
+                        cardsArray.indexOf(credit_type) === index
+                    });
 
-                new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['visa', 'switch', 'solo', 'mastercard', 'maestro', 'laser', 'jcb', 'discover', 'diners_club', 'dankort', 'american_express', 'forbrugsforeningen'],
-                    datasets: [{
-                    label: 'Credit Card Types',
-                    data: cardsArray.length,
-                    // borderWidth: 1
-                    backgroundColor: 
-                    [
-                            'rgb(255, 99, 132)',
-                            'rgb(75, 192, 192)',
-                            'rgb(255, 205, 86)',
-                            'rgb(201, 203, 207)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 99, 132)',
-                            'rgb(75, 192, 192)',
-                            'rgb(255, 205, 86)',
-                            'rgb(201, 203, 207)',
-                            'rgb(54, 162, 235)'
-                        ]
-                    }]
-                }
-            });
+                    // Valores
+                    const valores = [];
+                    for (const key of cardsSinRep) {
+                        valores.push(responseJSON.credit_cards.filter(credit_card => credit_card.credit_card_type === key)).length
+                    }
+
+                    // Obtenim el context del canvas
+                    const ctx = document.getElementById('myChart');                        
+
+                    new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: cardsSinRep,
+                        datasets: [{
+                            label: '# Credit cards',
+                            data: valores,
+                            backgroundColor: 
+                        [
+                                'red',
+                                'blue',
+                                'green',
+                                'yellow',
+                                'black',
+                                'orange',
+                                'brown',
+                                'grey',
+                                'pink',
+                                'lightblue'
+                            ]
+                        }]
+                    }
+                });
             })
-            .catch(err => console.log(err))
+            .catch(err => alert("Error 500. Error en el servidor intentélo más tarde!"))
         </script>
         
     </body>
