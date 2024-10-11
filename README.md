@@ -9,6 +9,8 @@ Plantilla API REST con ExpressJS y MySQL
 
 [https://datosabiertos.bne.es/pages/api] (Biblioteca Nacional de España)
 [https://docs.ckan.org/en/latest/api/] (ckan)
+[https://datos.gob.es/es/catalogo?publisher_display_name=Biblioteca+Nacional+de+Espa%C3%B1a&res_format_label=JSON&page=2] (Libros JSON)
+
 
 [https://www.ine.es/] (Instituto Nacional de Estadística)
 
@@ -20,3 +22,5 @@ Plantilla API REST con ExpressJS y MySQL
 [https://railway.app/](Railway)
 [https://bolt.new/] (Bolt)
 [https://ejs.co/](EJS)
+
+JSON Formatter -> Plugin per Chrome
